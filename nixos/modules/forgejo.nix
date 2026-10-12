@@ -10,13 +10,13 @@ in
     backend = "podman";
     containers = {
       forgejo-db = {
-        image = "docker.io/library/postgres:17";
+        image = "docker.io/library/postgres:18";
         environment = {
           POSTGRES_DB = "forgejo";
           POSTGRES_USER = "forgejo";
         };
         environmentFiles = [ "/var/lib/forgejo-containers/database.env" ];
-        volumes = [ "forgejo-postgres:/var/lib/postgresql/data" ];
+        volumes = [ "forgejo-postgres:/var/lib/postgresql" ];
         podman.sdnotify = "healthy";
         extraOptions = [
           "--network=forgejo"
