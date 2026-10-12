@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/cloudflared.nix
+    ./modules/forgejo.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
