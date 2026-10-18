@@ -1,0 +1,34 @@
+<style>
+	.page-footer { background: transparent; border-top: 1px solid #2e2e2e; padding: 1.5rem 2rem; font-size: 13.5px; color: #8a8a8a; }
+	.page-footer a, .page-footer .language { color: #b0b0b0; transition: color 0.15s; }
+	.page-footer a:hover { color: #ececec; text-decoration: none; }
+	.page-footer .left-links, .page-footer .right-links { display: flex; align-items: center; gap: 1.25rem; }
+	.page-footer .footer-version { font-family: var(--fonts-monospace); font-size: 12.5px; color: #8a8a8a; }
+</style>
+<footer class="page-footer" role="group" aria-label="{{ctx.Locale.Tr "aria.footer"}}">
+	<div class="left-links" role="contentinfo" aria-label="{{ctx.Locale.Tr "aria.footer.software"}}">
+		<span>Powered by <a target="_blank" rel="noopener noreferrer" href="https://forgejo.org">Forgejo</a></span>
+		{{if .IsAdmin}}
+			<a class="footer-version" href="{{AppSubUrl}}/admin/config">v{{AppVerNoMetadata}}</a>
+		{{else}}
+			<span class="footer-version">v{{AppVerNoMetadata}}</span>
+		{{end}}
+		{{if and .TemplateLoadTimes ShowFooterTemplateLoadTime}}
+			<span class="footer-version">Page: {{LoadTimes .PageStartTime}}</span>
+			<span class="footer-version">Template{{if .TemplateName}} {{.TemplateName}}{{end}}: {{call .TemplateLoadTimes}}</span>
+		{{end}}
+	</div>
+	<div class="right-links" role="group" aria-label="{{ctx.Locale.Tr "aria.footer.links"}}">
+		<div class="ui dropdown upward language">
+			<span class="flex-text-inline">{{svg "octicon-globe" 14}} {{ctx.Locale.LangName}}</span>
+			<div class="menu language-menu">
+				{{range .AllLangs}}
+					<a lang="{{.Lang}}" data-url="{{AppSubUrl}}/?lang={{.Lang}}" class="item {{if eq ctx.Locale.Lang .Lang}}active selected{{end}}">{{.Name}}</a>
+				{{end}}
+			</div>
+		</div>
+		<a href="{{AssetUrlPrefix}}/licenses.txt">Licenses</a>
+		{{if .EnableSwagger}}<a href="{{AppSubUrl}}/api/swagger">API</a>{{end}}
+		{{template "custom/extra_links_footer" .}}
+	</div>
+</footer>
