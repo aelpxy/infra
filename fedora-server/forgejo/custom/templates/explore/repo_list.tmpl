@@ -1,0 +1,33 @@
+{{if .Repos}}
+<table class="cgit-table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			{{if or $.PageIsExplore $.PageIsProfileStarList}}<th>Owner</th>{{end}}
+			<th>Language</th>
+			<th class="cgit-right">Idle</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{range .Repos}}
+		<tr>
+			<td class="cgit-name">
+				<a href="{{.Link}}">{{.Name}}</a>
+				{{if .IsArchived}}<span class="cgit-tag">{{ctx.Locale.Tr "repo.desc.archived"}}</span>{{end}}
+				{{if .IsPrivate}}<span class="cgit-tag">{{ctx.Locale.Tr "repo.desc.private"}}</span>{{else if .Owner.Visibility.IsPrivate}}<span class="cgit-tag">{{ctx.Locale.Tr "repo.desc.internal"}}</span>{{end}}
+				{{if .IsTemplate}}<span class="cgit-tag">{{ctx.Locale.Tr "repo.desc.template"}}</span>{{end}}
+				{{if .IsFork}}<span class="cgit-tag">fork</span>{{end}}
+				{{if .IsMirror}}<span class="cgit-tag">mirror</span>{{end}}
+			</td>
+			<td class="cgit-desc">{{$description := .DescriptionHTML $.Context}}{{if $description}}{{$description}}{{else}}<span class="cgit-muted">—</span>{{end}}</td>
+			{{if or $.PageIsExplore $.PageIsProfileStarList}}<td class="cgit-owner">{{if .Owner}}<a href="{{.Owner.HomeLink}}">{{.Owner.Name}}</a>{{end}}</td>{{end}}
+			<td class="cgit-lang">{{if .PrimaryLanguage}}<a href="?q={{$.Keyword}}&sort={{$.SortType}}&language={{.PrimaryLanguage.Language}}{{if $.TabName}}&tab={{$.TabName}}{{end}}"><i class="color-icon" style="background-color: {{.PrimaryLanguage.Color}}"></i>{{.PrimaryLanguage.Language}}</a>{{end}}</td>
+			<td class="cgit-age cgit-right">{{DateUtils.TimeSince .UpdatedUnix}}</td>
+		</tr>
+		{{end}}
+	</tbody>
+</table>
+{{else}}
+<div class="cgit-empty">{{ctx.Locale.Tr "search.no_results"}}</div>
+{{end}}
