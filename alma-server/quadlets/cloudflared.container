@@ -1,0 +1,18 @@
+[Unit]
+Description=Cloudflare tunnel
+
+[Container]
+Image=docker.io/cloudflare/cloudflared:latest
+ContainerName=cloudflared
+Network=jellyfin.network
+Network=immich.network
+EnvironmentFile=%h/.config/cloudflared/tunnel.env
+Exec=tunnel --no-autoupdate run
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,21 @@
+[Unit]
+Description=Immich Postgres
+
+[Container]
+Image=ghcr.io/immich-app/postgres:18-vectorchord1.1.1-pgvector0.8.5
+ContainerName=immich-postgres
+Network=immich.network
+EnvironmentFile=%h/.config/immich/postgres.env
+Volume=/srv/immich/postgres:/var/lib/postgresql:Z
+ShmSize=128m
+HealthCmd=pg_isready -U immich -d immich
+HealthInterval=10s
+Notify=healthy
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

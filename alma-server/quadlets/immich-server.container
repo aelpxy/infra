@@ -1,0 +1,23 @@
+[Unit]
+Description=Immich server
+Requires=immich-postgres.service immich-redis.service
+After=immich-postgres.service immich-redis.service
+
+[Container]
+Image=ghcr.io/immich-app/immich-server:v3
+ContainerName=immich-server
+Network=immich.network
+PublishPort=127.0.0.1:2283:2283
+EnvironmentFile=%h/.config/immich/immich.env
+Volume=/storage/gallery:/data
+Volume=/etc/localtime:/etc/localtime:ro
+AddDevice=/dev/dri/renderD128
+GroupAdd=keep-groups
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

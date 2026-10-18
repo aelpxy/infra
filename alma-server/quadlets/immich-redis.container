@@ -1,0 +1,17 @@
+[Unit]
+Description=Immich Valkey
+
+[Container]
+Image=docker.io/valkey/valkey:9
+ContainerName=immich-redis
+Network=immich.network
+HealthCmd=valkey-cli ping
+HealthInterval=10s
+Notify=healthy
+AutoUpdate=registry
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

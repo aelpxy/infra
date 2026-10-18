@@ -1,0 +1,17 @@
+[Unit]
+Description=Immich machine learning
+
+[Container]
+Image=ghcr.io/immich-app/immich-machine-learning:v3
+ContainerName=immich-machine-learning
+Network=immich.network
+EnvironmentFile=%h/.config/immich/immich.env
+Volume=/srv/immich/model-cache:/cache:Z
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target
