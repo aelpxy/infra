@@ -1,0 +1,20 @@
+[Unit]
+Description=ClickHouse server
+
+[Container]
+Image=docker.io/clickhouse/clickhouse-server:latest
+ContainerName=clickhouse
+PublishPort=8123:8123
+PublishPort=9000:9000
+Volume=/srv/clickhouse/data:/var/lib/clickhouse:Z
+Volume=/srv/clickhouse/logs:/var/log/clickhouse-server:Z
+EnvironmentFile=%h/.config/clickhouse/clickhouse.env
+Ulimit=nofile=262144:262144
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

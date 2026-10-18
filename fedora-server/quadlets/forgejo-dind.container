@@ -1,0 +1,19 @@
+[Unit]
+Description=Docker engine for Forgejo runner jobs
+
+[Container]
+Image=docker.io/library/docker:dind
+ContainerName=forgejo-dind
+Network=forgejo-runner.network
+PodmanArgs=--privileged
+Environment=DOCKER_TLS_CERTDIR=
+Volume=/srv/forgejo-runner/docker:/var/lib/docker:Z
+Exec=dockerd --host=tcp://0.0.0.0:2375 --tls=false
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target
