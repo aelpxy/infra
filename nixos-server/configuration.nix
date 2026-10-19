@@ -3,8 +3,11 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./modules/zfs.nix
+    ./modules/jellyfin.nix
+    ./modules/immich.nix
+    ./modules/clickhouse.nix
     ./modules/cloudflared.nix
-    ./modules/forgejo.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -44,6 +47,8 @@
     defaultNetwork.settings.dns_enabled = true;
     autoPrune.enable = true;
   };
+
+  virtualisation.oci-containers.backend = "podman";
 
   environment.systemPackages = with pkgs; [
     git
