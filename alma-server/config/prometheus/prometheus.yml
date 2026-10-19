@@ -1,0 +1,25 @@
+global:
+  scrape_interval: 30s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: node
+    static_configs:
+      - targets: ["host.loopback:9100"]
+        labels:
+          instance: alma-server
+
+  - job_name: podman
+    static_configs:
+      - targets: ["podman-exporter:9882"]
+        labels:
+          instance: alma-server
+
+  - job_name: clickhouse
+    static_configs:
+      - targets: ["clickhouse:9363"]
+        labels:
+          instance: alma-server

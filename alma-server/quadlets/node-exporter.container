@@ -1,0 +1,19 @@
+[Unit]
+Description=Prometheus node exporter
+
+[Container]
+Image=quay.io/prometheus/node-exporter:v1
+ContainerName=node-exporter
+Network=host
+PodmanArgs=--pid=host
+Volume=/:/host:ro,rslave
+SecurityLabelDisable=true
+Exec=--path.rootfs=/host --web.listen-address=127.0.0.1:9100
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

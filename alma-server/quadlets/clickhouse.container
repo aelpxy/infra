@@ -4,10 +4,12 @@ Description=ClickHouse server
 [Container]
 Image=docker.io/clickhouse/clickhouse-server:latest
 ContainerName=clickhouse
+Network=monitoring.network
 PublishPort=8123:8123
 PublishPort=9000:9000
 Volume=/srv/clickhouse/data:/var/lib/clickhouse:Z
 Volume=/srv/clickhouse/logs:/var/log/clickhouse-server:Z
+Volume=%h/.config/clickhouse/prometheus.xml:/etc/clickhouse-server/config.d/prometheus.xml:ro,Z
 EnvironmentFile=%h/.config/clickhouse/clickhouse.env
 Ulimit=nofile=262144:262144
 AutoUpdate=registry
