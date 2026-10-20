@@ -1,0 +1,19 @@
+[Unit]
+Description=Steel browser UI
+Wants=steel-api.service
+After=steel-api.service
+
+[Container]
+Image=ghcr.io/steel-dev/steel-browser-ui:latest
+ContainerName=steel-ui
+Network=steel.network
+PublishPort=5173:80
+Environment=API_URL=http://steel-api:3000
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

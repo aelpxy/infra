@@ -1,0 +1,25 @@
+[Unit]
+Description=Steel browser API
+
+[Container]
+Image=ghcr.io/steel-dev/steel-browser-api:latest
+ContainerName=steel-api
+Network=steel.network
+PublishPort=3000:3000
+PublishPort=9223:9223
+Volume=/srv/steel/logs:/data/logs:Z
+Volume=/srv/steel/exports:/tmp/steel-browser-exports:Z
+Volume=/srv/steel/cache:/app/.cache:Z
+Environment=DOMAIN=192.168.0.120:3000
+Environment=CDP_DOMAIN=192.168.0.120:9223
+Environment=LOG_STORAGE_ENABLED=true
+Environment=LOG_STORAGE_PATH=/data/logs/browser-logs.duckdb
+ShmSize=2g
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=600
+
+[Install]
+WantedBy=default.target
