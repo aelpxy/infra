@@ -7,6 +7,7 @@ ContainerName=cloudflared
 Network=jellyfin.network
 Network=immich.network
 Network=monitoring.network
+Network=rustfs.network
 EnvironmentFile=%h/.config/cloudflared/tunnel.env
 Exec=tunnel --no-autoupdate run
 AutoUpdate=registry
