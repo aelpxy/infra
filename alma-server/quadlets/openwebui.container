@@ -1,0 +1,21 @@
+[Unit]
+Description=Open WebUI
+
+[Container]
+Image=ghcr.io/open-webui/open-webui:main
+ContainerName=openwebui
+Network=openwebui.network
+EnvironmentFile=%h/.config/openwebui/openwebui.env
+Environment=ENABLE_OLLAMA_API=false
+Environment=ANONYMIZED_TELEMETRY=false
+Environment=DO_NOT_TRACK=true
+Environment=SCARF_NO_ANALYTICS=true
+Volume=/srv/openwebui/data:/app/backend/data:Z
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target
