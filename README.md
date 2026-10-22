@@ -1,6 +1,6 @@
 # infra
 
-NixOS configuration for my server.
+Configuration for my homelab servers.
 
 ## License
 
