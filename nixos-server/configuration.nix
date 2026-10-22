@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ./containers/cloudflared.nix ];
+
   boot.loader.grub = {
     enable = true;
     efiSupport = true;
