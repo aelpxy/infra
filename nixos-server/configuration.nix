@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./containers/cloudflared.nix ];
+  imports = [
+    ./containers/cloudflared.nix
+    ./containers/github-runner.nix
+    ./containers/monitoring.nix
+  ];
 
   boot.loader.grub = {
     enable = true;
@@ -92,7 +96,7 @@
     "d /data 0755 aelpxy users -"
   ];
 
-  environment.systemPackages = with pkgs; [ git ];
+  environment.systemPackages = with pkgs; [ git btop ];
 
   system.stateVersion = "26.05";
 }
